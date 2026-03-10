@@ -7,25 +7,26 @@ import com.bookings.*;
 public class BookMyStayApp 
 {
 
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
+
+        InventoryManager inventory = new InventoryManager();
+
+        inventory.addRoomType("Single",2,2000);
+        inventory.addRoomType("Suite",1,6000);
 
         BookingQueue queue = new BookingQueue();
 
-        queue.addRequest(new Reservation("R1","Alice","Single"));
-        queue.addRequest(new Reservation("R2","Bob","Suite"));
-        queue.addRequest(new Reservation("R3","Charlie","Double"));
+        queue.addRequest(new Reservation("R1","Rithvik","Single"));
+        queue.addRequest(new Reservation("R2","Rishab","Suite"));
+        queue.addRequest(new Reservation("R3","Ghouse","Suite"));
+
+        BookingProcessor processor = new BookingProcessor(inventory);
 
         while(queue.hasRequests()){
 
-            Reservation r = queue.nextRequest();
-
-            System.out.println(
-                    "Processing booking request for "
-                            + r.getGuestName()
-                            + " | Room: "
-                            + r.getRoomType()
-            );
+            processor.confirmReservation(queue.nextRequest());
         }
+
+        inventory.printInventory();
     }
 }
