@@ -2,6 +2,7 @@ package com.main;
 
 import com.inventory.*;
 import com.search.*;
+import com.bookings.*;
 
 public class BookMyStayApp 
 {
@@ -9,15 +10,22 @@ public class BookMyStayApp
     public static void main(String[] args) 
     {
 
-        InventoryManager inventory = new InventoryManager();
+        BookingQueue queue = new BookingQueue();
 
-        inventory.addRoomType("Single",10,2000);
-        inventory.addRoomType("Double",6,3500);
-        inventory.addRoomType("Suite",3,6000);
+        queue.addRequest(new Reservation("R1","Alice","Single"));
+        queue.addRequest(new Reservation("R2","Bob","Suite"));
+        queue.addRequest(new Reservation("R3","Charlie","Double"));
 
-        inventory.printInventory();
+        while(queue.hasRequests()){
 
-        RoomSearch search = new RoomSearch(inventory);
-        search.searchAvailableRooms();
+            Reservation r = queue.nextRequest();
+
+            System.out.println(
+                    "Processing booking request for "
+                            + r.getGuestName()
+                            + " | Room: "
+                            + r.getRoomType()
+            );
+        }
     }
 }
