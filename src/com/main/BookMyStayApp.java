@@ -1,6 +1,7 @@
 package com.main;
 
 import com.inventory.*;
+import com.search.*;
 
 public class BookMyStayApp 
 {
@@ -15,5 +16,8 @@ public class BookMyStayApp
         inventory.addRoomType("Suite",3,6000);
 
         inventory.printInventory();
+
+        RoomSearch search = new RoomSearch(inventory);
+        search.searchAvailableRooms();
     }
 }
