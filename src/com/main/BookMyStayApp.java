@@ -4,20 +4,18 @@ import com.inventory.*;
 import com.search.*;
 import com.bookings.*;
 import com.services.*;
+import com.report.*;
 
 public class BookMyStayApp 
 {
+    public static void main(String[] args) {
 
-    public static void main(String[] args) 
-    {
+        BookingReport report = new BookingReport();
 
-        ServiceManager manager = new ServiceManager();
+        report.addReservation(new Reservation("R1","Rithvik","Single"));
+        report.addReservation(new Reservation("R2","Rishab","Suite"));
+        report.addReservation(new Reservation("R3","Ghouse","Double"));
 
-        manager.addService("R1",new AddOnService("Breakfast",500));
-        manager.addService("R1",new AddOnService("Airport Pickup",1200));
-        manager.addService("R1",new AddOnService("Spa",2000));
-
-        manager.printServices("R1");
+        report.printHistory();
     }
 }
-
